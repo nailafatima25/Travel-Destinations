@@ -4,442 +4,505 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Travel Picks + Itineraries</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      line-height: 1.4;
-      background: #f6f7fb;
-      color: #1f2937;
+    :root {
+      --navy: #0a1628;
+      --navy-mid: #122040;
+      --navy-light: #1a3060;
+      --accent: #c9a84c;
+      --accent-light: #e8c97a;
+      --white: #ffffff;
+      --steel: #b0bcd0;
+      --text-muted: #6b7c9a;
+      --card-border: rgba(255,255,255,0.09);
     }
-    .header { background: white; border-bottom: 1px solid #e5e7eb; }
-    .header-inner { max-width: 1100px; margin: 0 auto; padding: 28px 16px; }
-    h1 { margin: 0 0 6px; font-size: 30px; }
-    .subtitle { margin: 0 0 16px; color: #4b5563; }
-    .controls { display: flex; gap: 10px; flex-wrap: wrap; }
-    .controls input, .controls select {
-      padding: 10px 12px; border-radius: 10px;
-      border: 1px solid #d1d5db; background: #fff; font-size: 14px;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); min-height: 100vh; }
+ 
+    /* HEADER */
+    .header { background: var(--navy); border-bottom: 1px solid rgba(255,255,255,0.08); position: sticky; top: 0; z-index: 40; }
+    .header-inner { max-width: 1160px; margin: 0 auto; padding: 22px 20px 0; }
+    .brand-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 500; display: block; margin-bottom: 4px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 40px; color: var(--white); line-height: 1; }
+    .subtitle { color: var(--steel); font-size: 14px; margin-top: 6px; margin-bottom: 18px; }
+ 
+    /* NAV TABS */
+    .nav-tabs { display: flex; gap: 0; overflow-x: auto; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .nav-tabs::-webkit-scrollbar { height: 0; }
+    .nav-tab {
+      padding: 11px 16px; font-size: 13px; font-weight: 500; color: var(--steel);
+      cursor: pointer; border: none; background: none; white-space: nowrap;
+      border-bottom: 2px solid transparent; transition: all 0.2s; font-family: 'DM Sans', sans-serif;
     }
-    .controls input { flex: 1; min-width: 220px; }
-    .controls select { min-width: 180px; }
-    .main { max-width: 1100px; margin: 0 auto; padding: 18px 16px 60px; }
-    .section {
-      margin-top: 18px; background: white;
-      border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px;
+    .nav-tab:hover { color: var(--white); }
+    .nav-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+ 
+    /* SEARCH */
+    .controls-bar { background: var(--navy-mid); padding: 12px 20px; }
+    .controls-inner { max-width: 1160px; margin: 0 auto; display: flex; gap: 10px; }
+    .search-wrap { position: relative; flex: 1; max-width: 480px; }
+    .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 15px; pointer-events: none; }
+    .controls-bar input {
+      width: 100%; padding: 9px 12px 9px 36px; border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.06);
+      color: var(--white); font-size: 14px; font-family: 'DM Sans', sans-serif; outline: none;
+      transition: border-color 0.2s;
     }
-    .section-head {
-      display: flex; gap: 10px; justify-content: space-between;
-      align-items: baseline; flex-wrap: wrap; margin-bottom: 12px;
-    }
-    .muted { color: #6b7280; margin: 0; }
-    .pill-row { display: flex; gap: 8px; flex-wrap: wrap; }
-    .pill {
-      font-size: 12px; color: #374151; background: #eef2ff;
-      border: 1px solid #e0e7ff; padding: 4px 10px; border-radius: 999px;
-    }
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    @media (max-width: 900px) { .cards { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 600px) { .cards { grid-template-columns: 1fr; } }
+    .controls-bar input::placeholder { color: var(--text-muted); }
+    .controls-bar input:focus { border-color: var(--accent); }
+ 
+    /* MAIN */
+    .main { max-width: 1160px; margin: 0 auto; padding: 26px 20px 80px; }
+    .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 18px; flex-wrap: wrap; gap: 8px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 26px; }
+    .section-count { color: var(--text-muted); font-size: 14px; }
+ 
+    /* CARDS */
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 960px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 580px) { .cards { grid-template-columns: 1fr; } }
+ 
     .card {
-      border: 1px solid #e5e7eb; border-radius: 14px; padding: 14px;
-      background: #fff; display: flex; flex-direction: column; gap: 10px;
+      background: var(--navy-mid); border: 1px solid var(--card-border);
+      border-radius: 18px; overflow: hidden; display: flex; flex-direction: column;
+      transition: transform 0.22s, box-shadow 0.22s;
     }
-    .card-top { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
-    .card h3 { margin: 0; font-size: 18px; }
-    .card .country { color: #6b7280; font-size: 13px; margin-top: 2px; }
-    .badges { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
-    .badge {
-      font-size: 11px; padding: 3px 8px; border-radius: 999px;
-      border: 1px solid #e5e7eb; background: #f9fafb; color: #374151;
-    }
-    .desc { margin: 0; color: #374151; }
-    .meta { display: flex; gap: 12px; flex-wrap: wrap; color: #6b7280; font-size: 13px; }
-    .btn-row { display: flex; gap: 8px; margin-top: auto; flex-wrap: wrap; }
-    .btn {
-      border: 1px solid #d1d5db; background: white; padding: 9px 10px;
-      border-radius: 10px; cursor: pointer; font-size: 14px;
-    }
-    .btn:hover { background: #f9fafb; }
-    .btn.primary { border: 1px solid #c7d2fe; background: #eef2ff; }
-    .btn.primary:hover { background: #e0e7ff; }
-    .btn.danger { border: 1px solid #fecaca; background: #fff1f2; }
-    .btn.danger:hover { background: #ffe4e6; }
-    .empty-state {
-      text-align: center; padding: 18px; border: 1px dashed #d1d5db;
-      border-radius: 14px; margin-top: 12px;
-    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.55); }
+ 
+    .card-country { font-size: 12px; color: var(--text-muted); padding: 12px 14px 0; display: block; }
+ 
+    .card-tags { display: flex; gap: 5px; flex-wrap: wrap; padding: 10px 14px 0; }
+    .tag { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; }
+    .tag-couple     { background: rgba(220,60,120,0.18); color: #f472b6; border: 1px solid rgba(244,114,182,0.3); }
+    .tag-relaxation { background: rgba(56,189,148,0.15); color: #6ee7b7; border: 1px solid rgba(110,231,183,0.3); }
+    .tag-shopping   { background: rgba(251,191,36,0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+    .tag-most-wanted { background: rgba(99,102,241,0.2); color: #a5b4fc; border: 1px solid rgba(165,180,252,0.3); }
+    .tag-most-desired{ background: rgba(20,184,166,0.15); color: #5eead4; border: 1px solid rgba(94,234,212,0.3); }
+    .tag-budget     { background: rgba(34,197,94,0.15); color: #86efac; border: 1px solid rgba(134,239,172,0.3); }
+    .tag-family     { background: rgba(249,115,22,0.15); color: #fdba74; border: 1px solid rgba(253,186,116,0.3); }
+    .tag-adventure  { background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(252,165,165,0.3); }
+ 
+    .card-body { padding: 12px 14px 14px; flex: 1; display: flex; flex-direction: column; gap: 7px; }
+    .card-name { font-family: 'Playfair Display', serif; font-size: 20px; }
+    .card-desc { font-size: 13px; color: var(--steel); line-height: 1.5; flex: 1; }
+    .card-meta-row { font-size: 12px; color: var(--text-muted); }
+    .card-meta-row strong { color: var(--steel); }
+ 
+    .btn-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+    .btn { padding: 8px 14px; border-radius: 9px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; border: none; }
+    .btn-primary { background: var(--accent); color: var(--navy); }
+    .btn-primary:hover { background: var(--accent-light); }
+    .btn-outline { background: rgba(255,255,255,0.07); color: var(--white); border: 1px solid rgba(255,255,255,0.15); }
+    .btn-outline:hover { background: rgba(255,255,255,0.13); }
+    .btn-saved { background: rgba(201,168,76,0.15); color: var(--accent); border: 1px solid rgba(201,168,76,0.3); }
+    .btn-danger { background: rgba(239,68,68,0.1); color: #fca5a5; border: 1px solid rgba(239,68,68,0.25); }
+    .btn-danger:hover { background: rgba(239,68,68,0.2); }
+ 
+    /* SAVED SECTION */
+    .saved-section { margin-top: 44px; }
+    .divider { height: 1px; background: rgba(255,255,255,0.07); margin-bottom: 28px; }
+ 
+    /* EMPTY */
+    .empty-state { text-align: center; padding: 44px 20px; border: 1px dashed rgba(255,255,255,0.12); border-radius: 18px; color: var(--text-muted); }
+    .empty-icon { font-size: 38px; margin-bottom: 10px; }
+    .empty-state h3 { color: var(--steel); margin-bottom: 6px; }
     .hidden { display: none !important; }
-    .footer { text-align: center; padding: 20px 10px; color: #6b7280; }
+ 
+    /* MODAL */
     .modal-backdrop {
-      position: fixed; inset: 0; background: rgba(17,24,39,0.55);
-      display: grid; place-items: center; padding: 16px; z-index: 50;
+      position: fixed; inset: 0; background: rgba(5,12,26,0.78);
+      display: grid; place-items: center; padding: 16px; z-index: 100;
+      backdrop-filter: blur(5px);
     }
-    .modal {
-      width: min(720px, 100%); background: white;
-      border-radius: 16px; border: 1px solid #e5e7eb; overflow: hidden;
-    }
-    .modal-head {
-      padding: 14px 14px 10px; display: flex; justify-content: space-between;
-      align-items: center; border-bottom: 1px solid #e5e7eb;
-    }
-    .modal-head h3 { margin: 0; font-size: 18px; }
-    .icon-btn {
-      border: 1px solid #e5e7eb; background: #fff;
-      border-radius: 10px; padding: 6px 10px; cursor: pointer;
-    }
-    .icon-btn:hover { background: #f9fafb; }
-    .modal-body { padding: 14px; max-height: 65vh; overflow-y: auto; }
-    .itinerary-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr);
-      gap: 10px; margin: 10px 0 12px;
-    }
-    @media (max-width: 650px) { .itinerary-grid { grid-template-columns: 1fr; } }
-    .day { border: 1px solid #e5e7eb; border-radius: 12px; padding: 10px; background: #fafafa; }
-    .day h4 { margin: 0 0 6px; font-size: 14px; }
-    .day ul { margin: 0; padding-left: 18px; color: #374151; }
-    .tips { border-top: 1px solid #e5e7eb; padding-top: 12px; }
-    .tips h4 { margin: 0 0 6px; }
-    .tips ul { margin: 0; padding-left: 18px; color: #374151; }
-    .modal-footer {
-      padding: 12px 14px; display: flex; gap: 10px;
-      justify-content: flex-end; border-top: 1px solid #e5e7eb;
-    }
+    .modal { width: min(760px, 100%); background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; overflow: hidden; box-shadow: 0 32px 80px rgba(0,0,0,0.65); }
+    .modal-hero { display: none; }
+    .modal-head { padding: 16px 18px 12px; display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .modal-head h3 { font-family: 'Playfair Display', serif; font-size: 21px; }
+    .modal-vibe { font-size: 13px; color: var(--text-muted); margin-top: 3px; }
+    .close-btn { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: var(--white); border-radius: 8px; width: 32px; height: 32px; display: grid; place-items: center; cursor: pointer; font-size: 15px; flex-shrink: 0; transition: background 0.15s; }
+    .close-btn:hover { background: rgba(255,255,255,0.15); }
+    .modal-body { padding: 16px 18px; max-height: 52vh; overflow-y: auto; }
+    .modal-body::-webkit-scrollbar { width: 4px; }
+    .modal-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+ 
+    .day-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+    @media (max-width: 580px) { .day-grid { grid-template-columns: 1fr; } }
+    .day-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 12px; }
+    .day-label { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .day-card ul { padding-left: 16px; color: var(--steel); font-size: 13px; }
+    .day-card li { margin-bottom: 4px; line-height: 1.4; }
+ 
+    .tips-section { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 14px; }
+    .tips-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--steel); margin-bottom: 8px; }
+    .tips-list { padding-left: 16px; color: var(--text-muted); font-size: 13px; }
+    .tips-list li { margin-bottom: 5px; }
+ 
+    .modal-footer { padding: 12px 18px; display: flex; gap: 10px; justify-content: flex-end; border-top: 1px solid rgba(255,255,255,0.08); }
+ 
+    /* FOOTER */
+    footer { text-align: center; padding: 28px 20px; color: var(--text-muted); font-size: 13px; border-top: 1px solid rgba(255,255,255,0.06); }
+    footer span { color: var(--accent); }
   </style>
 </head>
 <body>
-
+ 
 <header class="header">
   <div class="header-inner">
+    <span class="brand-label">Explore the World</span>
     <h1>Travel Picks</h1>
-    <p class="subtitle">Explore popular destinations + simple itineraries you can actually use.</p>
-    <div class="controls">
-      <input id="searchInput" type="text" placeholder="Search destinations (ex: Tokyo, beach, food)..." />
-      <select id="categorySelect">
-        <option value="all">All</option>
-        <option value="most-wanted">Most Wanted</option>
-        <option value="most-desired">Most Desired</option>
-        <option value="budget">Budget-Friendly</option>
-        <option value="family">Family</option>
-        <option value="adventure">Adventure</option>
-      </select>
+    <p class="subtitle">Popular destinations &amp; itineraries you can actually use.</p>
+    <nav class="nav-tabs" id="navTabs">
+      <button class="nav-tab active" data-cat="all">All</button>
+      <button class="nav-tab" data-cat="most-wanted">Most Wanted</button>
+      <button class="nav-tab" data-cat="most-desired">Most Desired</button>
+      <button class="nav-tab" data-cat="couple">Couple</button>
+      <button class="nav-tab" data-cat="relaxation">Relaxation</button>
+      <button class="nav-tab" data-cat="shopping">Shopping</button>
+      <button class="nav-tab" data-cat="budget">Budget</button>
+      <button class="nav-tab" data-cat="family">Family</button>
+      <button class="nav-tab" data-cat="adventure">Adventure</button>
+    </nav>
+  </div>
+  <div class="controls-bar">
+    <div class="controls-inner">
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input id="searchInput" type="text" placeholder="Search destinations, vibes, countries..." />
+      </div>
     </div>
   </div>
 </header>
-
+ 
 <main class="main">
-  <section class="section">
-    <div class="section-head">
-      <h2>Destinations</h2>
-      <div class="pill-row">
-        <span class="pill">Most Wanted</span>
-        <span class="pill">Most Desired</span>
-        <span class="pill">Budget</span>
-        <span class="pill">Family</span>
-        <span class="pill">Adventure</span>
-      </div>
-    </div>
-    <div id="cards" class="cards"></div>
-    <div id="emptyState" class="empty-state hidden">
-      <h3>No matches found</h3>
-      <p>Try a different keyword or category.</p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-head">
-      <h2>Saved (Favorites)</h2>
-      <p class="muted">Saved destinations stay in your browser.</p>
+  <div class="section-header">
+    <h2 class="section-title">Destinations</h2>
+    <span class="section-count" id="countLabel"></span>
+  </div>
+  <div id="cards" class="cards"></div>
+  <div id="emptyState" class="empty-state hidden">
+    <div class="empty-icon">🗺️</div>
+    <h3>No matches found</h3>
+    <p>Try a different keyword or category.</p>
+  </div>
+ 
+  <div class="saved-section">
+    <div class="divider"></div>
+    <div class="section-header">
+      <h2 class="section-title">Saved Destinations</h2>
+      <span class="section-count" style="color:var(--text-muted)">Stored in your browser</span>
     </div>
     <div id="savedCards" class="cards"></div>
     <div id="savedEmptyState" class="empty-state">
+      <div class="empty-icon">🔖</div>
       <h3>No saved destinations yet</h3>
-      <p>Click "Save" on a destination card to add it here.</p>
+      <p>Click "Save" on any card to add it here.</p>
     </div>
-  </section>
+  </div>
 </main>
-
-<!-- Modal -->
+ 
 <div id="modalBackdrop" class="modal-backdrop hidden">
   <div class="modal">
+    <img id="modalHero" class="modal-hero" src="" alt="" />
     <div class="modal-head">
-      <h3 id="modalTitle">Itinerary</h3>
-      <button id="closeModalBtn" class="icon-btn">✕</button>
+      <div>
+        <h3 id="modalTitle"></h3>
+        <div class="modal-vibe" id="modalVibe"></div>
+      </div>
+      <button class="close-btn" id="closeModalBtn">✕</button>
     </div>
     <div class="modal-body">
-      <p id="modalIntro" class="muted"></p>
-      <div id="itineraryGrid" class="itinerary-grid"></div>
-      <div class="tips">
-        <h4>Quick tips</h4>
-        <ul id="modalTips"></ul>
+      <div id="dayGrid" class="day-grid"></div>
+      <div class="tips-section">
+        <div class="tips-title">Quick Tips</div>
+        <ul class="tips-list" id="modalTips"></ul>
       </div>
     </div>
     <div class="modal-footer">
-      <button id="modalSaveBtn" class="btn primary">Save Destination</button>
-      <button id="modalCloseBtn" class="btn">Close</button>
+      <button class="btn btn-primary" id="modalSaveBtn">Save Destination</button>
+      <button class="btn btn-outline" id="modalCloseBtn">Close</button>
     </div>
   </div>
 </div>
-
-<footer class="footer">
-  <p>Built by Naila Fatima • HTML/CSS/JS • Beginner Front-End Project</p>
+ 
+<footer>
+  <p>Built by <span>Naila Fatima</span> · HTML / CSS / JS · Front-End Project</p>
 </footer>
-
+ 
 <script>
-  var destinations = [
-    {
-      id: "tokyo",
-      name: "Tokyo",
-      country: "Japan",
-      tags: ["most-wanted", "most-desired"],
-      vibe: "City, culture, food, tech",
-      bestTime: "March-May, Oct-Nov",
-      description: "A perfect mix of modern city life and traditional temples, plus amazing food and shopping.",
-      itinerary: [
-        { day: "Day 1", items: ["Shibuya Crossing", "Harajuku + Takeshita Street", "Meiji Shrine", "Dinner in Shinjuku"] },
-        { day: "Day 2", items: ["Asakusa + Senso-ji Temple", "Tokyo Skytree area", "Ueno Park", "Street food snacks"] },
-        { day: "Day 3", items: ["TeamLab (or museum)", "Tsukiji outer market", "Ginza walk", "Night views (Tokyo Tower)"] }
-      ],
-      tips: ["Buy a transit card for easy travel.", "Try a convenience store food tour.", "Keep cash for small shops."]
-    },
-    {
-      id: "paris",
-      name: "Paris",
-      country: "France",
-      tags: ["most-desired"],
-      vibe: "Art, romance, history",
-      bestTime: "April-June, Sep-Oct",
-      description: "Classic landmarks, museums, cafes, and beautiful neighborhoods to explore on foot.",
-      itinerary: [
-        { day: "Day 1", items: ["Eiffel Tower area", "Seine River walk", "Champs-Elysees", "Arc de Triomphe"] },
-        { day: "Day 2", items: ["Louvre Museum", "Tuileries Garden", "Ile de la Cite", "Notre-Dame area"] },
-        { day: "Day 3", items: ["Montmartre", "Sacre-Coeur", "Local bakery stop", "Evening cafe time"] }
-      ],
-      tips: ["Book museum tickets ahead.", "Use comfortable walking shoes.", "Visit neighborhoods, not just landmarks."]
-    },
-    {
-      id: "dubai",
-      name: "Dubai",
-      country: "UAE",
-      tags: ["most-wanted", "family"],
-      vibe: "Luxury, shopping, attractions",
-      bestTime: "Nov-Mar",
-      description: "Modern skyline, malls, desert experiences, and family-friendly attractions.",
-      itinerary: [
-        { day: "Day 1", items: ["Burj Khalifa area", "Dubai Mall", "Fountain show", "Dinner with a view"] },
-        { day: "Day 2", items: ["Desert safari", "Camel ride (optional)", "Sunset photos", "Traditional food"] },
-        { day: "Day 3", items: ["Beach morning", "Old Dubai + souks", "Museum visit", "Evening city walk"] }
-      ],
-      tips: ["Plan outdoor activities in cooler hours.", "Use metro for easy travel.", "Dress respectfully in public spaces."]
-    },
-    {
-      id: "istanbul",
-      name: "Istanbul",
-      country: "Turkiye",
-      tags: ["budget", "most-desired"],
-      vibe: "History, markets, views",
-      bestTime: "Apr-May, Sep-Oct",
-      description: "Historic sites, beautiful mosques, markets, and iconic views over the Bosphorus.",
-      itinerary: [
-        { day: "Day 1", items: ["Hagia Sophia area", "Blue Mosque", "Sultanahmet walk", "Local dessert stop"] },
-        { day: "Day 2", items: ["Grand Bazaar", "Spice Market", "Bosphorus ferry", "Sunset viewpoint"] },
-        { day: "Day 3", items: ["Galata Tower area", "Neighborhood cafes", "Museum time", "Night market walk"] }
-      ],
-      tips: ["Carry small cash for markets.", "Go early to avoid lines.", "Try local street foods safely."]
-    },
-    {
-      id: "banff",
-      name: "Banff",
-      country: "Canada",
-      tags: ["adventure", "most-wanted"],
-      vibe: "Mountains, lakes, hiking",
-      bestTime: "Jun-Sep (hiking), Dec-Feb (snow)",
-      description: "Stunning lakes, mountain views, and outdoor adventures for nature lovers.",
-      itinerary: [
-        { day: "Day 1", items: ["Lake Louise", "Short scenic hike", "Photography spots", "Relax in town"] },
-        { day: "Day 2", items: ["Moraine Lake (seasonal)", "Gondola ride", "Local trails", "Hot drink stop"] },
-        { day: "Day 3", items: ["Drive scenic route", "Easy viewpoint stops", "Picnic lunch", "Evening stroll"] }
-      ],
-      tips: ["Check weather and trail updates.", "Bring layers.", "Start early for parking and crowds."]
-    }
-  ];
-
-  var savedKey = "savedDestinations";
-
-  function loadSaved() {
-    try {
-      var raw = localStorage.getItem(savedKey);
-      var parsed = raw ? JSON.parse(raw) : [];
-      return Array.isArray(parsed) ? parsed : [];
-    } catch(e) { return []; }
+var destinations = [
+  {
+    id:"tokyo", name:"Tokyo", country:"Japan 🇯🇵",
+    tags:["most-wanted","most-desired","shopping"],
+    vibe:"City, culture, food, tech", bestTime:"March–May, Oct–Nov",
+    description:"A perfect mix of modern city life and ancient temples, world-class food, and legendary shopping districts.",
+    image:"https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&q=80",
+    itinerary:[
+      {day:"Day 1",items:["Shibuya Crossing","Harajuku + Takeshita St","Meiji Shrine","Dinner in Shinjuku"]},
+      {day:"Day 2",items:["Asakusa + Senso-ji","Tokyo Skytree","Ueno Park","Street food tour"]},
+      {day:"Day 3",items:["TeamLab","Tsukiji market","Ginza shopping","Tokyo Tower night view"]}
+    ],
+    tips:["Buy a transit card for easy travel.","Try a convenience store food tour.","Keep cash for small shops."]
+  },
+  {
+    id:"paris", name:"Paris", country:"France 🇫🇷",
+    tags:["most-desired","couple","shopping"],
+    vibe:"Art, romance, history", bestTime:"April–June, Sep–Oct",
+    description:"Classic landmarks, dreamy cafés, haute couture boutiques, and romantic neighborhoods made for wandering.",
+    image:"https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=80",
+    itinerary:[
+      {day:"Day 1",items:["Eiffel Tower area","Seine River walk","Champs-Élysées","Arc de Triomphe"]},
+      {day:"Day 2",items:["Louvre Museum","Tuileries Garden","Île de la Cité","Notre-Dame area"]},
+      {day:"Day 3",items:["Montmartre","Sacré-Cœur","Local bakery stop","Evening café time"]}
+    ],
+    tips:["Book museum tickets ahead.","Wear comfortable walking shoes.","Explore neighborhoods beyond landmarks."]
+  },
+  {
+    id:"dubai", name:"Dubai", country:"UAE 🇦🇪",
+    tags:["most-wanted","family","shopping"],
+    vibe:"Luxury, shopping, attractions", bestTime:"Nov–Mar",
+    description:"Gleaming skyline, world-record malls, thrilling desert safaris, and endless family-friendly fun.",
+    image:"https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80",
+    itinerary:[
+      {day:"Day 1",items:["Burj Khalifa + Dubai Mall","Fountain show","Mall of the Emirates","Dinner with a view"]},
+      {day:"Day 2",items:["Desert safari","Camel ride","Sunset photos","Traditional BBQ"]},
+      {day:"Day 3",items:["Beach morning","Old Dubai + gold souk","Museum of the Future","City walk evening"]}
+    ],
+    tips:["Plan outdoor activities in cooler hours.","Use metro for easy travel.","Dress respectfully in public."]
+  },
+  {
+    id:"istanbul", name:"Istanbul", country:"Türkiye 🇹🇷",
+    tags:["budget","most-desired","shopping"],
+    vibe:"History, markets, Bosphorus views", bestTime:"Apr–May, Sep–Oct",
+    description:"Mosques, spice markets, and dramatic views where two continents meet — all at a traveler-friendly price.",
+    image:"https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=800&q=80",
+    itinerary:[
+      {day:"Day 1",items:["Hagia Sophia","Blue Mosque","Sultanahmet walk","Local dessert stop"]},
+      {day:"Day 2",items:["Grand Bazaar","Spice Market","Bosphorus ferry","Galata sunset"]},
+      {day:"Day 3",items:["Galata Tower","Karaköy cafés","Museum visit","Night street food"]}
+    ],
+    tips:["Carry small cash for markets.","Go early to avoid lines.","Try simit, baklava, and kebabs."]
+  },
+  {
+    id:"banff", name:"Banff", country:"Canada 🇨🇦",
+    tags:["adventure","most-wanted"],
+    vibe:"Mountains, lakes, hiking", bestTime:"Jun–Sep (hiking), Dec–Feb (snow)",
+    description:"Impossibly turquoise lakes, towering peaks, and outdoor adventures that will leave you breathless.",
+    image:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+    itinerary:[
+      {day:"Day 1",items:["Lake Louise","Scenic hike","Photography stops","Relax in town"]},
+      {day:"Day 2",items:["Moraine Lake (seasonal)","Gondola ride","Local trails","Hot drink stop"]},
+      {day:"Day 3",items:["Icefields Pkwy drive","Viewpoint stops","Picnic lunch","Evening stroll"]}
+    ],
+    tips:["Check weather & trail updates.","Bring layers always.","Start early for parking."]
+  },
+  {
+    id:"maldives", name:"Maldives", country:"Maldives 🇲🇻",
+    tags:["couple","relaxation","most-desired"],
+    vibe:"Ocean, overwater villas, serenity", bestTime:"Nov–Apr",
+    description:"Crystal-clear lagoons, overwater bungalows, and pristine coral reefs — the ultimate romantic escape.",
+    image:"https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&q=80",
+    itinerary:[
+      {day:"Day 1",items:["Arrive & settle in villa","Sunset cruise","Candlelit beach dinner","Stargazing"]},
+      {day:"Day 2",items:["Snorkeling at reef","Dolphin watching","Couple's spa","Private beach time"]},
+      {day:"Day 3",items:["Kayaking at sunrise","Glass-bottom boat tour","Last snorkel swim","Farewell dinner"]}
+    ],
+    tips:["Book a water villa for the full experience.","Avoid monsoon season (May–Oct).","Pack reef-safe sunscreen."]
+  },
+  {
+    id:"santorini", name:"Santorini", country:"Greece 🇬🇷",
+    tags:["couple","relaxation","most-desired"],
+    vibe:"Sunsets, wine, white-washed cliffs", bestTime:"Apr–Jun, Sep–Oct",
+    description:"Iconic blue-domed churches, volcanic beaches, and the most legendary sunsets in the Mediterranean.",
+    image:"https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&q=80",
+    itinerary:[
+      {day:"Day 1",items:["Oia village walk","Caldera view lunch","Wine tasting","Oia sunset"]},
+      {day:"Day 2",items:["Red Beach & Black Beach","Akrotiri ruins","Fira exploration","Rooftop dinner"]},
+      {day:"Day 3",items:["Caldera boat tour","Hot springs dip","Imerovigli cliff hike","Farewell seafood"]}
+    ],
+    tips:["Stay in Oia or Imerovigli for best views.","Rent an ATV for easy island travel.","Book restaurants in advance in peak season."]
+  },
+  {
+    id:"bali", name:"Bali", country:"Indonesia 🇮🇩",
+    tags:["relaxation","couple","budget"],
+    vibe:"Temples, spa, rice terraces", bestTime:"Apr–Oct (dry season)",
+    description:"Emerald rice terraces, ancient Hindu temples, world-class spa retreats, and a spiritual calm unlike anywhere else.",
+    image:"https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",
+    itinerary:[
+      {day:"Day 1",items:["Tanah Lot temple","Seminyak sunset beach","Traditional dinner","Night market stroll"]},
+      {day:"Day 2",items:["Tegallalang rice terraces","Ubud market","Monkey Forest","Full-body Balinese spa"]},
+      {day:"Day 3",items:["Mount Batur sunrise hike","Hot spring soak","Batubulan dance show","Farewell cocktails"]}
+    ],
+    tips:["Respect temple dress codes — bring a sarong.","Negotiate prices at markets.","Dry season is best for outdoor activities."]
+  },
+  {
+    id:"milan", name:"Milan", country:"Italy 🇮🇹",
+    tags:["shopping","couple","most-wanted"],
+    vibe:"Fashion, design, culture", bestTime:"Mar–May, Sep–Nov",
+    description:"Fashion weeks, the golden Quadrilatero della Moda, aperitivo culture, and Leonardo's Last Supper.",
+    image:"https://images.unsplash.com/photo-1513581166391-887a96ddeafd?w=800&q=80",
+    itinerary:[
+      {day:"Day 1",items:["Duomo + rooftop","Galleria Vittorio Emanuele II","Via Montenapoleone shopping","Aperitivo in Navigli"]},
+      {day:"Day 2",items:["The Last Supper (book ahead!)","Brera gallery","Brera district stroll","Design Museum"]},
+      {day:"Day 3",items:["Serravalle outlet day trip","CityLife shopping","Gelato crawl","Rooftop farewell"]}
+    ],
+    tips:["Book The Last Supper months in advance.","Aperitivo (6–9 PM) often includes free snacks.","Visit during Fashion Week (Feb/Sep) for extra buzz."]
+  },
+  {
+    id:"singapore", name:"Singapore", country:"Singapore 🇸🇬",
+    tags:["shopping","family","most-wanted"],
+    vibe:"Futuristic city, food, luxury retail", bestTime:"Feb–Apr",
+    description:"A gleaming city-state where futuristic gardens meet hawker stalls and some of Asia's best luxury shopping.",
+    image:"https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800&q=80",
+    itinerary:[
+      {day:"Day 1",items:["Gardens by the Bay","Marina Bay Sands skypark","Orchard Road shopping","Hawker centre dinner"]},
+      {day:"Day 2",items:["Sentosa Island","Universal Studios","Resorts World shops","S.E.A. Aquarium"]},
+      {day:"Day 3",items:["Chinatown heritage","Little India spices","ION Orchard mall","Night Safari"]}
+    ],
+    tips:["MRT card covers everywhere cheaply.","Eat at hawker centres — incredible food, low cost.","No tipping needed — it's a gratuity-free culture."]
+  },
+  {
+    id:"kyoto", name:"Kyoto", country:"Japan 🇯🇵",
+    tags:["relaxation","couple","most-desired"],
+    vibe:"Temples, tea, quiet elegance", bestTime:"Mar–May, Oct–Nov",
+    description:"Ancient temples, zen gardens, geisha districts, and cherry blossoms — Japan's soul at its most serene.",
+    image:"https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=80",
+    itinerary:[
+      {day:"Day 1",items:["Fushimi Inari (sunrise)","Nishiki Market","Gion district evening","Kaiseki dinner"]},
+      {day:"Day 2",items:["Arashiyama bamboo grove","Tenryu-ji garden","Philosopher's Path","Tea ceremony"]},
+      {day:"Day 3",items:["Kinkaku-ji (Golden Pavilion)","Ryoan-ji rock garden","Nijo Castle","Farewell matcha dessert"]}
+    ],
+    tips:["Rent a bicycle to explore Arashiyama.","Go to Fushimi Inari at sunrise to beat crowds.","Book a ryokan for a magical traditional stay."]
+  },
+  {
+    id:"new-york", name:"New York City", country:"USA 🇺🇸",
+    tags:["shopping","most-wanted","family"],
+    vibe:"Energy, culture, iconic streets", bestTime:"Apr–Jun, Sep–Nov",
+    description:"The city that never sleeps — legendary shopping avenues, world-class museums, and an electric street energy.",
+    image:"https://images.unsplash.com/photo-1490644658840-3f2e3f8c5625?w=800&q=80",
+    itinerary:[
+      {day:"Day 1",items:["Central Park stroll","Fifth Avenue shopping","Times Square","Broadway show"]},
+      {day:"Day 2",items:["Brooklyn Bridge walk","DUMBO brunch","SoHo boutiques","High Line Park"]},
+      {day:"Day 3",items:["MoMA or The Met","Upper East Side","Rockefeller Center view","Chelsea Market"]}
+    ],
+    tips:["Get a MetroCard for subways and buses.","Book Broadway tickets in advance online.","Explore Williamsburg for a local NYC feel."]
   }
-
-  function saveSaved(ids) {
-    localStorage.setItem(savedKey, JSON.stringify(ids));
-  }
-
-  function isSaved(id) {
-    return loadSaved().indexOf(id) !== -1;
-  }
-
-  var tagMap = {
-    "most-wanted": "Most Wanted",
-    "most-desired": "Most Desired",
-    "budget": "Budget",
-    "family": "Family",
-    "adventure": "Adventure"
-  };
-
-  function makeCard(dest, inSavedSection) {
-    var card = document.createElement("div");
-    card.className = "card";
-
-    var badgesHTML = dest.tags.map(function(t) {
-      return '<span class="badge">' + (tagMap[t] || t) + '</span>';
-    }).join("");
-
-    var saveLabel = isSaved(dest.id) ? "Saved" : "Save";
-    var removeBtn = inSavedSection ? '<button class="btn danger" data-action="remove">Remove</button>' : "";
-
-    card.innerHTML =
-      '<div class="card-top">' +
-        '<div><h3>' + dest.name + '</h3><div class="country">' + dest.country + '</div></div>' +
-        '<div class="badges">' + badgesHTML + '</div>' +
-      '</div>' +
-      '<p class="desc">' + dest.description + '</p>' +
-      '<div class="meta">' +
-        '<span><strong>Vibe:</strong> ' + dest.vibe + '</span>' +
-        '<span><strong>Best time:</strong> ' + dest.bestTime + '</span>' +
-      '</div>' +
-      '<div class="btn-row">' +
-        '<button class="btn primary" data-action="itinerary">View Itinerary</button>' +
-        '<button class="btn" data-action="save">' + saveLabel + '</button>' +
-        removeBtn +
-      '</div>';
-
-    card.querySelector('[data-action="itinerary"]').onclick = function() { openModal(dest.id); };
-    card.querySelector('[data-action="save"]').onclick = function() { toggleSave(dest.id); };
-    if (inSavedSection) {
-      card.querySelector('[data-action="remove"]').onclick = function() { removeSaved(dest.id); };
-    }
-    return card;
-  }
-
-  function render() {
-    var q = document.getElementById("searchInput").value.trim().toLowerCase();
-    var category = document.getElementById("categorySelect").value;
-
-    var filtered = destinations.filter(function(d) {
-      var matchSearch =
-        d.name.toLowerCase().indexOf(q) !== -1 ||
-        d.country.toLowerCase().indexOf(q) !== -1 ||
-        d.description.toLowerCase().indexOf(q) !== -1 ||
-        d.vibe.toLowerCase().indexOf(q) !== -1;
-      var matchCat = category === "all" || d.tags.indexOf(category) !== -1;
-      return matchSearch && matchCat;
-    });
-
-    var cardsEl = document.getElementById("cards");
-    cardsEl.innerHTML = "";
-    filtered.forEach(function(d) { cardsEl.appendChild(makeCard(d, false)); });
-
-    var emptyState = document.getElementById("emptyState");
-    if (filtered.length === 0) {
-      emptyState.classList.remove("hidden");
-    } else {
-      emptyState.classList.add("hidden");
-    }
-
-    renderSaved();
-  }
-
-  function renderSaved() {
-    var savedIds = loadSaved();
-    var savedDests = destinations.filter(function(d) { return savedIds.indexOf(d.id) !== -1; });
-
-    var savedCardsEl = document.getElementById("savedCards");
-    savedCardsEl.innerHTML = "";
-    savedDests.forEach(function(d) { savedCardsEl.appendChild(makeCard(d, true)); });
-
-    var savedEmpty = document.getElementById("savedEmptyState");
-    if (savedDests.length === 0) {
-      savedEmpty.classList.remove("hidden");
-    } else {
-      savedEmpty.classList.add("hidden");
-    }
-  }
-
-  function toggleSave(id) {
-    var saved = loadSaved();
-    if (saved.indexOf(id) === -1) {
-      saved.push(id);
-      saveSaved(saved);
-    }
-    render();
-  }
-
-  function removeSaved(id) {
-    var saved = loadSaved().filter(function(x) { return x !== id; });
-    saveSaved(saved);
-    render();
-  }
-
-  function openModal(id) {
-    var dest = null;
-    for (var i = 0; i < destinations.length; i++) {
-      if (destinations[i].id === id) { dest = destinations[i]; break; }
-    }
-    if (!dest) return;
-
-    document.getElementById("modalTitle").textContent = dest.name + " — Sample Itinerary";
-    document.getElementById("modalIntro").textContent = "A simple 3-day plan. Vibe: " + dest.vibe;
-
-    var grid = document.getElementById("itineraryGrid");
-    grid.innerHTML = "";
-    dest.itinerary.forEach(function(block) {
-      var dayDiv = document.createElement("div");
-      dayDiv.className = "day";
-      var listItems = block.items.map(function(x) { return "<li>" + x + "</li>"; }).join("");
-      dayDiv.innerHTML = "<h4>" + block.day + "</h4><ul>" + listItems + "</ul>";
-      grid.appendChild(dayDiv);
-    });
-
-    var tipsList = document.getElementById("modalTips");
-    tipsList.innerHTML = "";
-    dest.tips.forEach(function(t) {
-      var li = document.createElement("li");
-      li.textContent = t;
-      tipsList.appendChild(li);
-    });
-
-    document.getElementById("modalSaveBtn").textContent = isSaved(id) ? "Saved" : "Save Destination";
-    document.getElementById("modalSaveBtn").setAttribute("data-id", id);
-    document.getElementById("modalBackdrop").classList.remove("hidden");
-  }
-
-  function closeModal() {
-    document.getElementById("modalBackdrop").classList.add("hidden");
-  }
-
-  document.getElementById("closeModalBtn").onclick = closeModal;
-  document.getElementById("modalCloseBtn").onclick = closeModal;
-  document.getElementById("modalBackdrop").onclick = function(e) {
-    if (e.target === document.getElementById("modalBackdrop")) closeModal();
-  };
-  document.getElementById("modalSaveBtn").onclick = function() {
-    var id = this.getAttribute("data-id");
-    if (id && !isSaved(id)) {
-      toggleSave(id);
-      this.textContent = "Saved";
-    }
-  };
-
-  document.getElementById("searchInput").oninput = render;
-  document.getElementById("categorySelect").onchange = render;
-
-  render();
+];
+ 
+var savedKey = "travelPicksSaved_v2";
+function loadSaved(){try{var r=localStorage.getItem(savedKey);var p=r?JSON.parse(r):[];return Array.isArray(p)?p:[];}catch(e){return[];}}
+function saveSaved(ids){try{localStorage.setItem(savedKey,JSON.stringify(ids));}catch(e){}}
+function isSaved(id){return loadSaved().indexOf(id)!==-1;}
+ 
+function tagClass(t){
+  return{
+    "couple":"tag-couple","relaxation":"tag-relaxation","shopping":"tag-shopping",
+    "most-wanted":"tag-most-wanted","most-desired":"tag-most-desired",
+    "budget":"tag-budget","family":"tag-family","adventure":"tag-adventure"
+  }[t]||"tag-most-wanted";
+}
+function tagLabel(t){
+  return{
+    "couple":"Couple","relaxation":"Relaxation","shopping":"Shopping",
+    "most-wanted":"Most Wanted","most-desired":"Most Desired",
+    "budget":"Budget","family":"Family","adventure":"Adventure"
+  }[t]||t;
+}
+ 
+function makeCard(dest,inSaved){
+  var card=document.createElement("div");
+  card.className="card";
+  var saved=isSaved(dest.id);
+  var tagsHTML=dest.tags.map(function(t){return'<span class="tag '+tagClass(t)+'">'+tagLabel(t)+'</span>';}).join("");
+  card.innerHTML=
+    '<span class="card-country">'+dest.country+'</span>'+
+    '<div class="card-tags">'+tagsHTML+'</div>'+
+    '<div class="card-body">'+
+      '<div class="card-name">'+dest.name+'</div>'+
+      '<p class="card-desc">'+dest.description+'</p>'+
+      '<div class="card-meta-row"><strong>Vibe:</strong> '+dest.vibe+'</div>'+
+      '<div class="card-meta-row"><strong>Best time:</strong> '+dest.bestTime+'</div>'+
+      '<div class="btn-row">'+
+        '<button class="btn btn-primary" data-action="itinerary">View Itinerary</button>'+
+        '<button class="btn '+(saved?'btn-saved':'btn-outline')+'" data-action="save">'+(saved?'✓ Saved':'Save')+'</button>'+
+        (inSaved?'<button class="btn btn-danger" data-action="remove">Remove</button>':'')+
+      '</div>'+
+    '</div>';
+  card.querySelector('[data-action="itinerary"]').onclick=function(){openModal(dest.id);};
+  card.querySelector('[data-action="save"]').onclick=function(){toggleSave(dest.id);};
+  if(inSaved){card.querySelector('[data-action="remove"]').onclick=function(){removeSaved(dest.id);};}
+  return card;
+}
+ 
+var currentCat="all";
+ 
+function render(){
+  var q=document.getElementById("searchInput").value.trim().toLowerCase();
+  var filtered=destinations.filter(function(d){
+    var ms=!q||d.name.toLowerCase().includes(q)||d.country.toLowerCase().includes(q)||d.description.toLowerCase().includes(q)||d.vibe.toLowerCase().includes(q);
+    var mc=currentCat==="all"||d.tags.indexOf(currentCat)!==-1;
+    return ms&&mc;
+  });
+  var el=document.getElementById("cards");
+  el.innerHTML="";
+  filtered.forEach(function(d){el.appendChild(makeCard(d,false));});
+  document.getElementById("countLabel").textContent=filtered.length+" destination"+(filtered.length!==1?"s":"");
+  document.getElementById("emptyState").classList.toggle("hidden",filtered.length>0);
+  renderSaved();
+}
+ 
+function renderSaved(){
+  var ids=loadSaved();
+  var dests=destinations.filter(function(d){return ids.indexOf(d.id)!==-1;});
+  var el=document.getElementById("savedCards");
+  el.innerHTML="";
+  dests.forEach(function(d){el.appendChild(makeCard(d,true));});
+  document.getElementById("savedEmptyState").classList.toggle("hidden",dests.length>0);
+}
+ 
+function toggleSave(id){var s=loadSaved();if(s.indexOf(id)===-1)s.push(id);saveSaved(s);render();}
+function removeSaved(id){saveSaved(loadSaved().filter(function(x){return x!==id;}));render();}
+ 
+var activeId=null;
+function openModal(id){
+  var dest=destinations.find(function(d){return d.id===id;});
+  if(!dest)return;
+  activeId=id;
+  document.getElementById("modalHero").src=dest.image;
+  document.getElementById("modalHero").alt=dest.name;
+  document.getElementById("modalTitle").textContent=dest.name+" — Sample Itinerary";
+  document.getElementById("modalVibe").textContent="Vibe: "+dest.vibe+" · Best time: "+dest.bestTime;
+  var grid=document.getElementById("dayGrid");
+  grid.innerHTML="";
+  dest.itinerary.forEach(function(b){
+    var div=document.createElement("div");div.className="day-card";
+    div.innerHTML='<div class="day-label">'+b.day+'</div><ul>'+b.items.map(function(x){return"<li>"+x+"</li>";}).join("")+"</ul>";
+    grid.appendChild(div);
+  });
+  var tips=document.getElementById("modalTips");
+  tips.innerHTML="";
+  dest.tips.forEach(function(t){var li=document.createElement("li");li.textContent=t;tips.appendChild(li);});
+  var sb=document.getElementById("modalSaveBtn");
+  sb.textContent=isSaved(id)?"✓ Saved":"Save Destination";
+  sb.className="btn "+(isSaved(id)?"btn-saved":"btn-primary");
+  document.getElementById("modalBackdrop").classList.remove("hidden");
+}
+function closeModal(){document.getElementById("modalBackdrop").classList.add("hidden");activeId=null;}
+document.getElementById("closeModalBtn").onclick=closeModal;
+document.getElementById("modalCloseBtn").onclick=closeModal;
+document.getElementById("modalBackdrop").onclick=function(e){if(e.target===this)closeModal();};
+document.getElementById("modalSaveBtn").onclick=function(){
+  if(!activeId||isSaved(activeId))return;
+  toggleSave(activeId);this.textContent="✓ Saved";this.className="btn btn-saved";
+};
+document.getElementById("searchInput").oninput=render;
+document.getElementById("navTabs").onclick=function(e){
+  var btn=e.target.closest(".nav-tab");if(!btn)return;
+  document.querySelectorAll(".nav-tab").forEach(function(t){t.classList.remove("active");});
+  btn.classList.add("active");currentCat=btn.dataset.cat;render();
+};
+render();
 </script>
-
 </body>
 </html>
