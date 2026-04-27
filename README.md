@@ -8,10 +8,15 @@ A front-end web application to browse popular travel destinations, fully interac
 ✨ Highlights
 
 🗺️ 12 curated destinations — Tokyo, Paris, Bali, Maldives, NYC, and more
+
 🏷️ Filter by category — Couple, Adventure, Budget, Family, Shopping, Relaxation, and more
+
 🔍 Live search — Instantly filter by destination name, country, vibe, or description
+
 📅 3-day itineraries — Tap any card to view a detailed day-by-day plan in a modal popup
+
 🔖 Save destinations — Bookmarked picks persist in your browser using localStorage
+
 📱 Fully responsive — Works beautifully on desktop, tablet, and mobile
 
 
