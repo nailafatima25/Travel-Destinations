@@ -73,9 +73,11 @@ Travel-Destinations
 
 🐛 Bugs Fixed
 
-Save button state out of sync — After saving from the modal, the card button in the grid wasn't updating to "✓ Saved" until a full re-render was triggered. Fixed by calling render() after every save/unsave action to keep all UI in sync.
-Search + filter conflict — Early versions broke when a user had both a search query typed and a category tab active. Fixed by composing both filters together inside a single render() function that checks both state variables simultaneously.
-GitHub Pages 404 — Deployment initially returned a 404 because the file wasn't named index.html. Renaming the entry point file resolved the issue immediately.
+Save button state out of sync: After saving from the modal, the card button in the grid wasn't updating to "✓ Saved" until a full re-render was triggered. Fixed by calling render() after every save/unsave action to keep all UI in sync.
+
+Search + filter conflict: Early versions broke when a user had both a search query typed and a category tab active. Fixed by composing both filters together inside a single render() function that checks both state variables simultaneously.
+
+GitHub Pages 404: Deployment initially returned a 404 because the file wasn't named index.html. Renaming the entry point file resolved the issue immediately.
 
 
 🌱 Future Features
