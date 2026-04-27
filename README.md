@@ -3,6 +3,9 @@ Readme · ✈️ Travel-Destination Explorer & Itinerary Planner — Browse & Sa
 
 A front-end web application to browse popular travel destinations, fully interactive travel destination explorer — browse 12 handpicked destinations, filter by vibe, view 3-day itineraries, and save your favorites. No login. No backend. Just open and explore.
 
+<img width="1440" height="900" alt="Screenshot 2026-04-26 at 10 36 16 PM" src="https://github.com/user-attachments/assets/57cb4382-8c4a-4edb-a67a-8f022583545c" />
+
+
 🔗 Live Demo → https://nailafatima25.github.io/Travel-Destinations/
 
 ✨ Highlights
@@ -39,6 +42,11 @@ Naila Fatima
 
 Screenshots:
 Destination GridItinerary Modal
+<img width="1440" height="900" alt="Screenshot 2026-04-26 at 10 36 34 PM" src="https://github.com/user-attachments/assets/101477c1-6a49-4ee9-a549-3a421f8cbe97" />
+<img width="1440" height="900" alt="Screenshot 2026-04-26 at 10 36 55 PM" src="https://github.com/user-attachments/assets/90915c50-f424-404e-aee4-b6682d2e7fce" />
+<img width="1440" height="900" alt="Screenshot 2026-04-26 at 10 36 24 PM" src="https://github.com/user-attachments/assets/58f3698b-552a-4f6f-bbdd-394a9e56583b" />
+
+
 
 
 🛠️ Tools & Technologies
