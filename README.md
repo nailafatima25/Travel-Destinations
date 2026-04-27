@@ -65,7 +65,8 @@ Remove — In the Saved section, click "Remove" to delete a bookmark
 
 
 🗂️ Project Structure
-Travel-Destinations/
+Travel-Destinations
+
 ├── index.html       ← All HTML, CSS, and JavaScript in one file
 
 └── README.md        ← You are here
