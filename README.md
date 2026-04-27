@@ -21,9 +21,9 @@ A front-end web application to browse popular travel destinations, fully interac
 
 
 📖 Overview
-Travel Picks is a front-end web application that helps travelers quickly discover and organize destination ideas. Many travel websites are cluttered, slow, or require sign-ups just to browse. This project solves that by offering a clean, fast, and zero-friction browsing experience — entirely in the browser, with no backend or account needed.
-The app was built from scratch using only HTML, CSS, and vanilla JavaScript — no frameworks, no libraries. The goal was to demonstrate how far core web technologies can go when paired with thoughtful design. Each destination card includes a country tag, category badges, a short description, best travel time, and vibe summary. Clicking "View Itinerary" opens a polished modal with a 3-day activity breakdown and quick travel tips.
-One of the more interesting technical challenges was building the save/unsave system using the browser's localStorage API so that bookmarked destinations persist between sessions without any database. Another challenge was making the search and filter work together in real time — both the tab filter and the text search needed to compose cleanly without conflicts, which required careful state management in plain JavaScript.
+Travel Picks is a front-end web application that helps travelers quickly discover and organize destination ideas. Many travel websites are cluttered, slow, or require sign-ups just to browse. This project solves that by offering a clean, fast, and zero-friction browsing experience, entirely in the browser, with no backend or account needed.
+The app was built from scratch using only HTML, CSS, and vanilla JavaScript, no frameworks, no libraries. The goal was to demonstrate how far core web technologies can go when paired with thoughtful design. Each destination card includes a country tag, category badges, a short description, best travel time, and vibe summary. Clicking "View Itinerary" opens a polished modal with a 3-day activity breakdown and quick travel tips.
+One of the more interesting technical challenges was building the save/unsave system using the browser's localStorage API so that bookmarked destinations persist between sessions without any database. Another challenge was making the search and filter work together in real time, both the tab filter and the text search needed to compose cleanly without conflicts, which required careful state management in plain JavaScript.
 Future improvements I'd love to add include a map view using the Google Maps or Leaflet API, a cost estimator per destination, user-submitted reviews, and a trip planner where you can drag and reorder your saved destinations into a full itinerary. I also plan to expand the destination list and add animated card transitions for a more polished feel.
 
 👤 Author
@@ -35,7 +35,7 @@ Naila Fatima
 
 🎬 Demo
 
-📽️ [Add your Loom/screencapture video link here — record a short walkthrough of the site showing search, filter, itinerary modal, and save features with a brief audio explanation]
+📽️ 
 
 Screenshots:
 Destination GridItinerary Modal
@@ -67,6 +67,7 @@ Remove — In the Saved section, click "Remove" to delete a bookmark
 🗂️ Project Structure
 Travel-Destinations/
 ├── index.html       ← All HTML, CSS, and JavaScript in one file
+
 └── README.md        ← You are here
 
 🐛 Bugs Fixed
