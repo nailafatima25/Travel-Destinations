@@ -20,14 +20,14 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); min-height: 100vh; }
-
+ 
     /* HEADER */
     .header { background: var(--navy); border-bottom: 1px solid rgba(255,255,255,0.08); position: sticky; top: 0; z-index: 40; }
     .header-inner { max-width: 1160px; margin: 0 auto; padding: 22px 20px 0; }
     .brand-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 500; display: block; margin-bottom: 4px; }
     h1 { font-family: 'Playfair Display', serif; font-size: 40px; color: var(--white); line-height: 1; }
     .subtitle { color: var(--steel); font-size: 14px; margin-top: 6px; margin-bottom: 18px; }
-
+ 
     /* NAV TABS */
     .nav-tabs { display: flex; gap: 0; overflow-x: auto; border-bottom: 1px solid rgba(255,255,255,0.1); }
     .nav-tabs::-webkit-scrollbar { height: 0; }
@@ -38,7 +38,7 @@
     }
     .nav-tab:hover { color: var(--white); }
     .nav-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-
+ 
     /* SEARCH */
     .controls-bar { background: var(--navy-mid); padding: 12px 20px; }
     .controls-inner { max-width: 1160px; margin: 0 auto; display: flex; gap: 10px; }
@@ -52,27 +52,27 @@
     }
     .controls-bar input::placeholder { color: var(--text-muted); }
     .controls-bar input:focus { border-color: var(--accent); }
-
+ 
     /* MAIN */
     .main { max-width: 1160px; margin: 0 auto; padding: 26px 20px 80px; }
     .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 18px; flex-wrap: wrap; gap: 8px; }
     .section-title { font-family: 'Playfair Display', serif; font-size: 26px; }
     .section-count { color: var(--text-muted); font-size: 14px; }
-
+ 
     /* CARDS */
     .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     @media (max-width: 960px) { .cards { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 580px) { .cards { grid-template-columns: 1fr; } }
-
+ 
     .card {
       background: var(--navy-mid); border: 1px solid var(--card-border);
       border-radius: 18px; overflow: hidden; display: flex; flex-direction: column;
       transition: transform 0.22s, box-shadow 0.22s;
     }
     .card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.55); }
-
+ 
     .card-country { font-size: 12px; color: var(--text-muted); padding: 12px 14px 0; display: block; }
-
+ 
     .card-tags { display: flex; gap: 5px; flex-wrap: wrap; padding: 10px 14px 0; }
     .tag { font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; }
     .tag-couple     { background: rgba(220,60,120,0.18); color: #f472b6; border: 1px solid rgba(244,114,182,0.3); }
@@ -83,13 +83,13 @@
     .tag-budget     { background: rgba(34,197,94,0.15); color: #86efac; border: 1px solid rgba(134,239,172,0.3); }
     .tag-family     { background: rgba(249,115,22,0.15); color: #fdba74; border: 1px solid rgba(253,186,116,0.3); }
     .tag-adventure  { background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(252,165,165,0.3); }
-
+ 
     .card-body { padding: 12px 14px 14px; flex: 1; display: flex; flex-direction: column; gap: 7px; }
     .card-name { font-family: 'Playfair Display', serif; font-size: 20px; }
     .card-desc { font-size: 13px; color: var(--steel); line-height: 1.5; flex: 1; }
     .card-meta-row { font-size: 12px; color: var(--text-muted); }
     .card-meta-row strong { color: var(--steel); }
-
+ 
     .btn-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
     .btn { padding: 8px 14px; border-radius: 9px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; border: none; }
     .btn-primary { background: var(--accent); color: var(--navy); }
@@ -99,17 +99,17 @@
     .btn-saved { background: rgba(201,168,76,0.15); color: var(--accent); border: 1px solid rgba(201,168,76,0.3); }
     .btn-danger { background: rgba(239,68,68,0.1); color: #fca5a5; border: 1px solid rgba(239,68,68,0.25); }
     .btn-danger:hover { background: rgba(239,68,68,0.2); }
-
+ 
     /* SAVED SECTION */
     .saved-section { margin-top: 44px; }
     .divider { height: 1px; background: rgba(255,255,255,0.07); margin-bottom: 28px; }
-
+ 
     /* EMPTY */
     .empty-state { text-align: center; padding: 44px 20px; border: 1px dashed rgba(255,255,255,0.12); border-radius: 18px; color: var(--text-muted); }
     .empty-icon { font-size: 38px; margin-bottom: 10px; }
     .empty-state h3 { color: var(--steel); margin-bottom: 6px; }
     .hidden { display: none !important; }
-
+ 
     /* MODAL */
     .modal-backdrop {
       position: fixed; inset: 0; background: rgba(5,12,26,0.78);
@@ -126,28 +126,28 @@
     .modal-body { padding: 16px 18px; max-height: 52vh; overflow-y: auto; }
     .modal-body::-webkit-scrollbar { width: 4px; }
     .modal-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
-
+ 
     .day-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
     @media (max-width: 580px) { .day-grid { grid-template-columns: 1fr; } }
     .day-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 12px; }
     .day-label { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
     .day-card ul { padding-left: 16px; color: var(--steel); font-size: 13px; }
     .day-card li { margin-bottom: 4px; line-height: 1.4; }
-
+ 
     .tips-section { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 14px; }
     .tips-title { font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--steel); margin-bottom: 8px; }
     .tips-list { padding-left: 16px; color: var(--text-muted); font-size: 13px; }
     .tips-list li { margin-bottom: 5px; }
-
+ 
     .modal-footer { padding: 12px 18px; display: flex; gap: 10px; justify-content: flex-end; border-top: 1px solid rgba(255,255,255,0.08); }
-
+ 
     /* FOOTER */
     footer { text-align: center; padding: 28px 20px; color: var(--text-muted); font-size: 13px; border-top: 1px solid rgba(255,255,255,0.06); }
     footer span { color: var(--accent); }
   </style>
 </head>
 <body>
-
+ 
 <header class="header">
   <div class="header-inner">
     <span class="brand-label">Explore the World</span>
@@ -174,7 +174,7 @@
     </div>
   </div>
 </header>
-
+ 
 <main class="main">
   <div class="section-header">
     <h2 class="section-title">Destinations</h2>
@@ -186,7 +186,7 @@
     <h3>No matches found</h3>
     <p>Try a different keyword or category.</p>
   </div>
-
+ 
   <div class="saved-section">
     <div class="divider"></div>
     <div class="section-header">
@@ -201,7 +201,7 @@
     </div>
   </div>
 </main>
-
+ 
 <div id="modalBackdrop" class="modal-backdrop hidden">
   <div class="modal">
     <img id="modalHero" class="modal-hero" src="" alt="" />
@@ -225,11 +225,11 @@
     </div>
   </div>
 </div>
-
+ 
 <footer>
   <p>Built by <span>Naila Fatima</span> · HTML / CSS / JS · Front-End Project</p>
 </footer>
-
+ 
 <script>
 var destinations = [
   {
@@ -389,23 +389,27 @@ var destinations = [
     tips:["Get a MetroCard for subways and buses.","Book Broadway tickets in advance online.","Explore Williamsburg for a local NYC feel."]
   }
 ];
-
+ 
 var savedKey = "travelPicksSaved_v2";
 function loadSaved(){try{var r=localStorage.getItem(savedKey);var p=r?JSON.parse(r):[];return Array.isArray(p)?p:[];}catch(e){return[];}}
 function saveSaved(ids){try{localStorage.setItem(savedKey,JSON.stringify(ids));}catch(e){}}
 function isSaved(id){return loadSaved().indexOf(id)!==-1;}
-
+ 
 function tagClass(t){
-  return{"couple":"tag-couple","relaxation":"tag-relaxation","shopping":"tag-shopping",
+  return{
+    "couple":"tag-couple","relaxation":"tag-relaxation","shopping":"tag-shopping",
     "most-wanted":"tag-most-wanted","most-desired":"tag-most-desired",
-    "budget":"tag-budget","family":"tag-family","adventure":"tag-adventure"}[t]||"tag-most-wanted";
+    "budget":"tag-budget","family":"tag-family","adventure":"tag-adventure"
+  }[t]||"tag-most-wanted";
 }
 function tagLabel(t){
-  return{"couple":"Couple","relaxation":"Relaxation","shopping":"Shopping",
+  return{
+    "couple":"Couple","relaxation":"Relaxation","shopping":"Shopping",
     "most-wanted":"Most Wanted","most-desired":"Most Desired",
-    "budget":"Budget","family":"Family","adventure":"Adventure"}[t]||t;
+    "budget":"Budget","family":"Family","adventure":"Adventure"
+  }[t]||t;
 }
-
+ 
 function makeCard(dest,inSaved){
   var card=document.createElement("div");
   card.className="card";
@@ -430,9 +434,9 @@ function makeCard(dest,inSaved){
   if(inSaved){card.querySelector('[data-action="remove"]').onclick=function(){removeSaved(dest.id);};}
   return card;
 }
-
+ 
 var currentCat="all";
-
+ 
 function render(){
   var q=document.getElementById("searchInput").value.trim().toLowerCase();
   var filtered=destinations.filter(function(d){
@@ -447,7 +451,7 @@ function render(){
   document.getElementById("emptyState").classList.toggle("hidden",filtered.length>0);
   renderSaved();
 }
-
+ 
 function renderSaved(){
   var ids=loadSaved();
   var dests=destinations.filter(function(d){return ids.indexOf(d.id)!==-1;});
@@ -456,15 +460,17 @@ function renderSaved(){
   dests.forEach(function(d){el.appendChild(makeCard(d,true));});
   document.getElementById("savedEmptyState").classList.toggle("hidden",dests.length>0);
 }
-
+ 
 function toggleSave(id){var s=loadSaved();if(s.indexOf(id)===-1)s.push(id);saveSaved(s);render();}
 function removeSaved(id){saveSaved(loadSaved().filter(function(x){return x!==id;}));render();}
-
+ 
 var activeId=null;
 function openModal(id){
   var dest=destinations.find(function(d){return d.id===id;});
   if(!dest)return;
   activeId=id;
+  document.getElementById("modalHero").src=dest.image;
+  document.getElementById("modalHero").alt=dest.name;
   document.getElementById("modalTitle").textContent=dest.name+" — Sample Itinerary";
   document.getElementById("modalVibe").textContent="Vibe: "+dest.vibe+" · Best time: "+dest.bestTime;
   var grid=document.getElementById("dayGrid");
