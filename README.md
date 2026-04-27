@@ -1,7 +1,7 @@
-Readme · MDCopy🌍 Travel Destinations — Browse & Save Travel Destinations with Itineraries
+Readme · ✈️ Travel-Destination Explorer & Itinerary Planner — Browse & Save Travel Destinations with Itineraries
 
 
-A sleek, fully interactive travel destination explorer — browse 12 handpicked destinations, filter by vibe, view 3-day itineraries, and save your favorites. No login. No backend. Just open and explore.
+A front-end web application to browse popular travel destinations, fully interactive travel destination explorer — browse 12 handpicked destinations, filter by vibe, view 3-day itineraries, and save your favorites. No login. No backend. Just open and explore.
 
 🔗 Live Demo → nailafatima25.github.io/Travel-Destinations
 
