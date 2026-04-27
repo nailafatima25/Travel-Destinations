@@ -52,15 +52,20 @@ Step 2: Navigate into the folder
 bashcd Travel-Destinations
 Step 3: Open in your browser
 bashopen index.html
-Or simply double-click index.html in your file explorer — it opens directly in any browser.
+Or simply double-click index.html in your file explorer, it opens directly in any browser.
 
 🧭 How to Use
 
 Browse — Scroll through the destination cards on the main grid
+
 Filter — Click any tab (e.g. "Couple", "Budget", "Adventure") to narrow results
+
 Search — Type in the search bar to filter by name, country, or vibe
+
 View Itinerary — Click the gold "View Itinerary" button on any card to open a 3-day plan
+
 Save — Click "Save" to bookmark a destination; it appears in the "Saved Destinations" section below
+
 Remove — In the Saved section, click "Remove" to delete a bookmark
 
 
